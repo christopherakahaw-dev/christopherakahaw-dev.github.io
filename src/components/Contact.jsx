@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Section from "./Section.jsx";
 import { profile } from "../data/profile.js";
-import { GitHubIcon, MailIcon } from "./Icons.jsx";
+import { GitHubIcon, LinkedInIcon, MailIcon } from "./Icons.jsx";
 
 // "Plan your journey" — the contact section as a big travel ticket.
 export default function Contact() {
@@ -41,6 +41,7 @@ export default function Contact() {
             <button className="btn" onClick={copyEmail} aria-live="polite">
               {copied ? "✓ Copied!" : "Copy email"}
             </button>
+            <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer"><LinkedInIcon /> LinkedIn</a>
             <a className="btn" href={profile.github} target="_blank" rel="noreferrer"><GitHubIcon /> GitHub</a>
           </div>
         </div>

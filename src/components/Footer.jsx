@@ -12,6 +12,8 @@ export default function Footer() {
           <span>Thank you for riding with {profile.firstName}.</span>
         </p>
         <p className="footer-meta mono">
+          <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a> ·{" "}
+          <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a> ·{" "}
           © {new Date().getFullYear()} {profile.name} · Built with React + Vite ·{" "}
           <a href="https://github.com/christopherakahaw-dev/portfoliio" target="_blank" rel="noreferrer">Source</a>
         </p>

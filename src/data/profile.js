@@ -13,6 +13,7 @@ export const profile = {
   email: "christopher.htoo07@gmail.com",
   github: "https://github.com/christopherakahaw-dev",
   githubHandle: "christopherakahaw-dev",
+  linkedin: "https://www.linkedin.com/in/htoo-aung-win-574a95421",
   about: [
     "I grew up in Taikkyi, a township in northern Yangon, and have been drawn to computers for as long as I can remember. Most of what I know about code I taught myself — first HTML and CSS, then JavaScript and React, then Java.",
     "I care about using technology to solve real problems for real people. Lately that means public transport: helping commuters, wheelchair users and older riders plan journeys with live, honest data.",

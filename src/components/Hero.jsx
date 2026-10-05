@@ -1,6 +1,6 @@
 import { profile, highlights } from "../data/profile.js";
 import DepartureBoard from "./DepartureBoard.jsx";
-import { GitHubIcon, MailIcon, PinIcon } from "./Icons.jsx";
+import { GitHubIcon, LinkedInIcon, MailIcon, PinIcon } from "./Icons.jsx";
 
 // Decorative metro lines sweeping behind the hero, with trains running on them.
 const LINES = [
@@ -47,6 +47,7 @@ export default function Hero() {
           <div className="cta-row">
             <a className="btn btn-primary" href="#projects">Board the projects →</a>
             <a className="btn" href={profile.github} target="_blank" rel="noreferrer"><GitHubIcon /> GitHub</a>
+            <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer"><LinkedInIcon /> LinkedIn</a>
             <a className="btn" href={`mailto:${profile.email}`}><MailIcon /> Email</a>
           </div>
           <p className="hero-loc mono"><PinIcon /> {profile.location}</p>
