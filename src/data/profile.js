@@ -21,14 +21,14 @@ export const profile = {
   interests: ["Coding", "Reading", "Chess", "Guitar"],
 };
 
-// Each section is a "station" on the line. Colours follow Singapore's MRT lines.
-export const stations = [
-  { id: "about", code: "NS1", name: "About", line: "ns" },
-  { id: "projects", code: "EW2", name: "Projects", line: "ew" },
-  { id: "skills", code: "CC3", name: "Skills", line: "cc" },
-  { id: "route", code: "NE4", name: "Education", line: "ne" },
-  { id: "service", code: "DT5", name: "Experience", line: "dt" },
-  { id: "contact", code: "TE6", name: "Contact", line: "te" },
+// Page sections, in order. Used by the navigation and section headers.
+export const sections = [
+  { id: "about", name: "About" },
+  { id: "projects", name: "Projects" },
+  { id: "skills", name: "Skills" },
+  { id: "route", name: "Education" },
+  { id: "service", name: "Experience" },
+  { id: "contact", name: "Contact" },
 ];
 
 // Rows on the hero's split-flap departure board.
@@ -66,7 +66,6 @@ export const projects = [
   },
   {
     title: "Planner Maps",
-    line: "ne",
     kicker: "Hackathon · pitch to LTA",
     summary:
       "A step-free journey planner designed around wheelchair users, built entirely on Singapore government open data.",
@@ -75,7 +74,6 @@ export const projects = [
   },
   {
     title: "Senior Transit Companion",
-    line: "cc",
     kicker: "Interactive prototype",
     summary:
       "A working prototype for an older wheelchair user travelling across Toa Payoh — every element of the design made to work.",
@@ -85,7 +83,6 @@ export const projects = [
   },
   {
     title: "Note-Taking Software",
-    line: "te",
     kicker: "Java capstone",
     status: "In progress",
     summary: "Capstone for the Technortal Java Mastery course: a desktop notes app with persistent storage.",
@@ -93,7 +90,6 @@ export const projects = [
   },
   {
     title: "Quizzical",
-    line: "dt",
     kicker: "React mini-project",
     summary: "A timed trivia quiz with animated backgrounds and answer checking.",
     tags: ["React", "Vite"],
@@ -108,15 +104,15 @@ export const earlierWork = [
   { title: "programming_fundamentals", note: "HTML, CSS, JS and Python exercises", url: "https://github.com/christopherakahaw-dev/programming_fundamentals" },
 ];
 
-// Skills drawn as metro lines. level: "core" (filled station) | "learning" (ring)
-export const skillLines = [
-  { name: "Web Line", line: "ew", items: [{ name: "HTML", level: "core" }, { name: "CSS", level: "core" }, { name: "JavaScript", level: "core" }, { name: "React", level: "learning" }] },
-  { name: "Java Line", line: "ns", items: [{ name: "Java", level: "core" }, { name: "JavaFX", level: "learning" }, { name: "OOP", level: "core" }] },
-  { name: "Data & Tools", line: "cc", items: [{ name: "MySQL", level: "learning" }, { name: "Git", level: "core" }, { name: "GitHub", level: "core" }, { name: "Vite", level: "learning" }] },
-  { name: "Languages", line: "ne", items: [{ name: "Burmese", level: "core", note: "Native" }, { name: "English", level: "core", note: "IELTS 7.0" }, { name: "Chinese", level: "learning", note: "Basic" }] },
+// Skills shown as keyboard keys. level: "core" (solid key) | "learning" (outlined key)
+export const skillGroups = [
+  { name: "Web", items: [{ name: "HTML", level: "core" }, { name: "CSS", level: "core" }, { name: "JavaScript", level: "core" }, { name: "React", level: "learning" }] },
+  { name: "Java", items: [{ name: "Java", level: "core" }, { name: "OOP", level: "core" }, { name: "JavaFX", level: "learning" }] },
+  { name: "Data & Tools", items: [{ name: "Git", level: "core" }, { name: "GitHub", level: "core" }, { name: "MySQL", level: "learning" }, { name: "Vite", level: "learning" }] },
+  { name: "Languages", items: [{ name: "Burmese", level: "core", note: "Native" }, { name: "English", level: "core", note: "IELTS 7.0" }, { name: "Chinese", level: "learning", note: "Basic" }] },
 ];
 
-// Education drawn as a route. region switches the line colour (Myanmar → Singapore).
+// Education as a timeline. region groups the entries (Myanmar → online → Singapore).
 export const education = [
   { year: "2012", title: "B.E.H.S (Myoma) Taikkyi", place: "Taikkyi, Yangon", region: "mm", points: ["KG to Grade 9", "Middle School Scholarship (2016)", "3rd, Northern Yangon Region Maths Competition"] },
   { year: "2022", title: "N.M.T Private High School", place: "Taikkyi, Yangon", region: "mm", points: ["Grade 10"] },
@@ -125,14 +121,14 @@ export const education = [
   { year: "2025", title: "IELTS Academic — 7.0", place: "September 2025", region: "online", points: ["L 7.0 · R 7.5 · W 7.5 · S 6.5"] },
   { year: "2025", title: "Java Mastery Course", place: "Technortal Learning Centre", region: "online", points: ["Capstone: JavaFX + MySQL notes app"] },
   { year: "2026", title: "Google AI Professional Certificate", place: "Google · May 2026", region: "online", points: [] },
-  { year: "2026", title: "Nanyang Technological University", place: "Singapore", region: "sg", points: ["BSc Computer Science, Year 1"], major: true, interchange: "Transfer to Singapore" },
+  { year: "2026", title: "Nanyang Technological University", place: "Singapore", region: "sg", points: ["BSc Computer Science, Year 1"], major: true, interchange: "Moved to Singapore" },
 ];
 
 export const experience = [
-  { role: "Logistics Director", org: "NTU Myanmar Community", date: "Sep 2025 – now", line: "ns" },
-  { role: "Volunteer", org: "All People Help Group, Hmawbi", date: "2025", note: "Three months supporting community services", line: "ew" },
-  { role: "Class Representative", org: "D. YEC, Grade 12 Section A", date: "2024 – 2025", note: "Led group presentations and school projects", line: "cc" },
-  { role: "Guest Speaker", org: "Students' Target High School", date: "Webinars", note: "Grade 12 exam preparation sessions", line: "ne" },
-  { role: "Mentor", org: "Local students", date: "Ongoing", note: "Mentoring two students for the matriculation exam", line: "dt" },
-  { role: "Participant", org: "American Center Yangon", date: "Weekly", note: "Saturday programmes and activities", line: "te" },
+  { role: "Logistics Director", org: "NTU Myanmar Community", date: "Sep 2025 – now" },
+  { role: "Volunteer", org: "All People Help Group, Hmawbi", date: "2025", note: "Three months supporting community services" },
+  { role: "Class Representative", org: "D. YEC, Grade 12 Section A", date: "2024 – 2025", note: "Led group presentations and school projects" },
+  { role: "Guest Speaker", org: "Students' Target High School", date: "Webinars", note: "Grade 12 exam preparation sessions" },
+  { role: "Mentor", org: "Local students", date: "Ongoing", note: "Mentoring two students for the matriculation exam" },
+  { role: "Participant", org: "American Center Yangon", date: "Weekly", note: "Saturday programmes and activities" },
 ];

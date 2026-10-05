@@ -3,7 +3,7 @@ import Section from "./Section.jsx";
 import { profile } from "../data/profile.js";
 import { GitHubIcon, MailIcon } from "./Icons.jsx";
 
-// "Plan your journey" — the contact section as a big travel ticket.
+// "Plan your journey" — the contact section as a ticket from you to me.
 export default function Contact() {
   const [copied, setCopied] = useState(false);
 
@@ -37,7 +37,7 @@ export default function Contact() {
             </div>
           </div>
           <div className="cta-row">
-            <a className="btn btn-primary" href={`mailto:${profile.email}`}><MailIcon /> Tap in — email me</a>
+            <a className="btn btn-primary" href={`mailto:${profile.email}`}><MailIcon /> Email me</a>
             <button className="btn" onClick={copyEmail} aria-live="polite">
               {copied ? "✓ Copied!" : "Copy email"}
             </button>
@@ -45,11 +45,11 @@ export default function Contact() {
           </div>
         </div>
         <div className="journey-stub mono">
-          <span>Single trip</span>
+          <span>Direct line</span>
           <strong>
             {profile.email.split("@")[0]}<wbr />@{profile.email.split("@")[1]}
           </strong>
-          <span>Fare: free · Valid any time</span>
+          <span>Always happy to chat</span>
           <span className="barcode" aria-hidden="true" />
         </div>
       </div>

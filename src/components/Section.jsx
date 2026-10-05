@@ -1,27 +1,24 @@
-import { stations } from "../data/profile.js";
+import { sections } from "../data/profile.js";
 
-// A section styled as a station: an MRT-style sign with the station code,
-// and a hint of the next stop.
+// A numbered chapter heading with a hint of what comes next.
 export default function Section({ id, title, children, className = "" }) {
-  const index = stations.findIndex((s) => s.id === id);
-  const station = stations[index];
-  const next = stations[index + 1];
+  const index = sections.findIndex((s) => s.id === id);
+  const section = sections[index];
+  const next = sections[index + 1];
+  const num = String(index + 1).padStart(2, "0");
 
   return (
-    <section id={id} className={`section c-${station.line} ${className}`} aria-labelledby={`${id}-title`}>
+    <section id={id} className={`section ${className}`} aria-labelledby={`${id}-title`}>
       <div className="container">
         <header className="sign reveal">
-          <span className={`sign-code bg-${station.line}`}>
-            <span className="mono">{station.code.slice(0, 2)}</span>
-            <strong>{station.code.slice(2)}</strong>
-          </span>
+          <span className="sign-num" aria-hidden="true">{num}</span>
           <div className="sign-text">
-            <p className="sign-kicker mono">Station {String(index + 1).padStart(2, "0")} · {station.name}</p>
+            <p className="sign-kicker mono">{num} / {section.name}</p>
             <h2 id={`${id}-title`} className="sign-title">{title}</h2>
           </div>
           {next && (
             <a className="sign-next mono" href={`#${next.id}`}>
-              Next: <span className={`dot bg-${next.line}`} aria-hidden="true" /> {next.name} →
+              Next: {next.name} →
             </a>
           )}
         </header>

@@ -2,28 +2,23 @@ import { profile, highlights } from "../data/profile.js";
 import DepartureBoard from "./DepartureBoard.jsx";
 import { GitHubIcon, MailIcon, PinIcon } from "./Icons.jsx";
 
-// Decorative metro lines sweeping behind the hero, with trains running on them.
-const LINES = [
-  { c: "ns", d: "M -40 110 H 560 L 760 310 V 760" },
-  { c: "ew", d: "M -40 470 H 330 L 520 280 H 1240" },
-  { c: "cc", d: "M 880 -40 V 150 L 1030 300 V 540 L 900 670 H 520" },
-  { c: "ne", d: "M 1240 90 H 1060 L 860 290 V 760" },
-  { c: "dt", d: "M 1240 640 H 1080 L 960 520 H 640 L 440 720" },
+// Decorative flowing paths behind the hero, with small sparks travelling along them.
+const PATHS = [
+  "M -60 520 C 200 420, 320 640, 560 520 S 900 260, 1260 340",
+  "M -60 160 C 260 60, 420 300, 700 220 S 1040 40, 1260 120",
+  "M 300 760 C 420 520, 700 600, 820 420 S 1000 120, 1260 -40",
 ];
 
-function HeroLines() {
+function HeroPaths() {
   return (
     <svg className="hero-lines" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      {LINES.map((l, i) => (
-        <g key={l.c}>
-          <path d={l.d} className={`hl-path s-${l.c}`} />
-          <circle r="7" className={`hl-train f-${l.c}`}>
-            <animateMotion dur={`${14 + i * 3}s`} repeatCount="indefinite" path={l.d} begin={`${-i * 2.5}s`} />
+      {PATHS.map((d, i) => (
+        <g key={i}>
+          <path d={d} className={`hl-path hl-${i}`} />
+          <circle r="5" className={`hl-spark hl-${i}`}>
+            <animateMotion dur={`${16 + i * 4}s`} repeatCount="indefinite" path={d} begin={`${-i * 3}s`} />
           </circle>
         </g>
-      ))}
-      {[[760, 310], [520, 280], [1030, 300], [860, 290], [960, 520], [330, 470]].map(([x, y]) => (
-        <circle key={`${x}-${y}`} cx={x} cy={y} r="11" className="hl-interchange" />
       ))}
     </svg>
   );
@@ -32,20 +27,20 @@ function HeroLines() {
 export default function Hero() {
   return (
     <section id="top" className="hero">
-      <HeroLines />
+      <HeroPaths />
       <div className="container hero-grid">
         <div className="hero-copy">
           <p className="hero-kicker mono">
-            <span className="code-pill bg-ns">HA1</span> Now arriving at platform 2026
+            <span className="status-dot" aria-hidden="true" /> Open to internships · 2026
           </p>
           <h1 className="hero-title">
             <span className="ht-line">{profile.firstName}</span>
-            <span className="ht-line ht-outline">{profile.lastName}</span>
+            <span className="ht-line ht-accent">{profile.lastName}</span>
           </h1>
           <p className="hero-role">{profile.role}</p>
           <p className="hero-tagline">{profile.tagline}</p>
           <div className="cta-row">
-            <a className="btn btn-primary" href="#projects">Board the projects →</a>
+            <a className="btn btn-primary" href="#projects">See my projects →</a>
             <a className="btn" href={profile.github} target="_blank" rel="noreferrer"><GitHubIcon /> GitHub</a>
             <a className="btn" href={`mailto:${profile.email}`}><MailIcon /> Email</a>
           </div>

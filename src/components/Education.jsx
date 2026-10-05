@@ -4,10 +4,10 @@ import { education } from "../data/profile.js";
 import { useElementProgress } from "../hooks/useScroll.js";
 
 const REGION_LABEL = { mm: "Myanmar", online: "Online & certificates", sg: "Singapore" };
-const REGION_LINE = { mm: "ns", online: "dt", sg: "ew" };
+const REGION_COLOR = { mm: "--accent-3", online: "--accent", sg: "--accent-2" };
 
-// Colour the route line by region, switching exactly at each region's first
-// stop. Stop positions depend on layout, so this is measured, not hard-coded.
+// Colour the timeline by region, switching between each region's stops.
+// Stop positions depend on layout, so this is measured, not hard-coded.
 function useRouteColours(ref, fillRef) {
   useEffect(() => {
     const ol = ref.current;
@@ -18,7 +18,7 @@ function useRouteColours(ref, fillRef) {
       const top = fill.getBoundingClientRect().top;
       const stops = [...ol.querySelectorAll(".rstop")].map((li, i) => {
         const dot = li.querySelector(".rstop-dot").getBoundingClientRect();
-        return { y: dot.top + dot.height / 2 - top, color: `var(--${REGION_LINE[education[i].region]})` };
+        return { y: dot.top + dot.height / 2 - top, color: `var(${REGION_COLOR[education[i].region]})` };
       });
       const parts = [`${stops[0].color} 0px`];
       for (let i = 1; i < stops.length; i++) {
@@ -37,7 +37,7 @@ function useRouteColours(ref, fillRef) {
   }, [ref, fillRef]);
 }
 
-// Education as a route that draws itself as you scroll down it.
+// Education as a timeline that draws itself as you scroll down it.
 export default function Education() {
   const ref = useRef(null);
   const fillRef = useRef(null);
@@ -45,7 +45,7 @@ export default function Education() {
   useRouteColours(ref, fillRef);
 
   return (
-    <Section id="route" title="The route so far">
+    <Section id="route" title="The journey so far">
       <ol ref={ref} className="route">
         <span className="route-track" aria-hidden="true" />
         <span ref={fillRef} className="route-fill" aria-hidden="true" />
