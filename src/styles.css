@@ -568,7 +568,7 @@ button {
 }
 
 @media (min-width: 1180px) {
-  .hero-grid { grid-template-columns: 1fr 1.05fr; gap: 56px; }
+  .hero-grid { grid-template-columns: 0.9fr 1.1fr; gap: 48px; }
 }
 
 .hero-kicker {
@@ -706,49 +706,53 @@ button {
 }
 
 .board-table {
-  /* Tile size scales with the board's own width: 33 tiles + gaps must fit */
-  --cell: clamp(7px, calc((100cqi - 70px) / 38), 15px);
+  /* Tile size scales with the board's own width so every tile fits:
+     28 tiles at ~0.95 cell each, plus column gaps. */
+  --cell: clamp(9px, calc((100cqi - 30px) / 29.5), 20px);
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 6px;
+  border-spacing: 0 5px;
 }
 
 .board-table th {
   text-align: left;
   font-family: var(--mono);
-  font-size: 0.62rem;
-  font-weight: 500;
+  font-size: 0.66rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: rgb(255 255 255 / 0.4);
-  padding: 0 calc(var(--cell) * 0.4) 2px 0;
+  color: rgb(255 255 255 / 0.6);
+  padding: 0 calc(var(--cell) * 0.6) 4px 0;
 }
 
 .board-table td {
-  padding: 0 calc(var(--cell) * 0.4) 0 0;
+  padding: 0 calc(var(--cell) * 0.6) 0 0;
   white-space: nowrap;
 }
 
+/* Tiles sit nearly edge to edge so letters read as words */
 .flaps {
   display: inline-flex;
-  gap: 2px;
+  gap: 1px;
 }
 
 .flap {
   position: relative;
   display: inline-grid;
   place-items: center;
-  width: calc(var(--cell) * 1.05);
-  height: calc(var(--cell) * 1.6);
-  border-radius: 3px;
-  background: linear-gradient(180deg, #23252d 0 49%, #1b1d23 51% 100%);
+  width: calc(var(--cell) * 0.95);
+  height: calc(var(--cell) * 1.45);
+  border-radius: 2px;
+  background: linear-gradient(180deg, #2a2d36 0 49%, #22252d 51% 100%);
   font-family: var(--mono);
-  font-weight: 700;
+  font-weight: 800;
   font-size: var(--cell);
-  color: #f3f1e8;
-  box-shadow: 0 1px 0 rgb(0 0 0 / 0.6);
+  color: #ffffff;
   overflow: hidden;
 }
+
+.flaps .flap:first-child { border-radius: 4px 2px 2px 4px; }
+.flaps .flap:last-child { border-radius: 2px 4px 4px 2px; }
 
 .flap::after {
   content: "";
@@ -757,11 +761,11 @@ button {
   right: 0;
   top: 50%;
   height: 1px;
-  background: rgb(0 0 0 / 0.75);
+  background: rgb(0 0 0 / 0.55);
 }
 
 .flap.flipping {
-  color: rgb(255 255 255 / 0.55);
+  color: rgb(255 255 255 / 0.6);
   animation: flip 0.09s linear infinite;
 }
 
@@ -769,10 +773,26 @@ button {
   50% { transform: scaleY(0.82); }
 }
 
+/* Status colours at full strength */
+tr[data-status="arrived"] .col-status .flap { color: #cfd3dc; }
 tr[data-status="boarding"] .col-status .flap { color: var(--amber); }
 tr[data-status="ontime"] .col-status .flap { color: #3ddc84; }
-tr[data-status="arrived"] .col-status .flap { color: rgb(255 255 255 / 0.55); }
-tr[data-status="boarding"] .col-status .flaps { animation: blink 1.2s steps(2) 2.5s infinite; }
+
+/* The current row (boarding) stands out: amber time tiles and a gentle pulse */
+tr[data-status="boarding"] .col-time .flap {
+  background: var(--amber);
+  color: #14161c;
+}
+
+tr[data-status="boarding"] .col-time .flap::after { background: rgb(0 0 0 / 0.2); }
+
+tr[data-status="boarding"] .col-status .flaps {
+  animation: pulse 1.6s ease-in-out 2.5s infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.7; }
+}
 
 @keyframes blink {
   50% { opacity: 0.35; }
@@ -806,8 +826,12 @@ tr[data-status="boarding"] .col-status .flaps { animation: blink 1.2s steps(2) 2
 
 @media (max-width: 560px) {
   .board { padding: 14px 12px; }
-  .board-table { --cell: clamp(7px, calc((100cqi - 60px) / 33), 15px); }
   .hide-sm { display: none; }
+  /* Narrower tiles on phones so the letters themselves can be larger */
+  .board-table { --cell: clamp(9px, calc((100cqi - 26px) / 25.6), 16px); border-spacing: 0 4px; }
+  .board-table td,
+  .board-table th { padding-right: calc(var(--cell) * 0.45); }
+  .flap { width: calc(var(--cell) * 0.84); height: calc(var(--cell) * 1.4); }
 }
 
 /* ---------- Highlights ---------- */

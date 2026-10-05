@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { departures } from "../data/profile.js";
 
+// Each column is exactly as wide as its longest entry — no empty filler tiles.
 const COLS = [
-  { key: "time", label: "Time", width: 4 },
-  { key: "dest", label: "Destination", width: 17 },
-  { key: "plat", label: "Plat", width: 4, hideOnMobile: true },
-  { key: "status", label: "Status", width: 8 },
-];
+  { key: "time", label: "Time" },
+  { key: "dest", label: "Destination" },
+  { key: "status", label: "Status" },
+].map((c) => ({ ...c, width: Math.max(...departures.map((d) => d[c.key].length)) }));
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-·";
 const TICK_MS = 45;
 

@@ -33,10 +33,10 @@ export const stations = [
 
 // Rows on the hero's split-flap departure board.
 export const departures = [
-  { time: "2012", dest: "TAIKKYI  B.E.H.S", plat: "KG-9", status: "ARRIVED" },
-  { time: "2025", dest: "WHOLE BURMA TOP 8", plat: "538", status: "ARRIVED" },
-  { time: "2026", dest: "NTU  COMPUTER SCI", plat: "Y1", status: "BOARDING" },
-  { time: "NEXT", dest: "YOUR TEAM?", plat: "--", status: "ON TIME" },
+  { time: "2012", dest: "TAIKKYI SCHOOL", status: "ARRIVED" },
+  { time: "2025", dest: "TOP 8 NATIONWIDE", status: "ARRIVED" },
+  { time: "2026", dest: "NTU COMPUTER SCI", status: "BOARDING" },
+  { time: "NEXT", dest: "YOUR TEAM?", status: "ON TIME" },
 ];
 
 export const highlights = [
