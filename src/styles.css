@@ -606,6 +606,11 @@ button {
   -webkit-background-clip: text;
   background-clip: text;
   transition: color 0.4s ease;
+  /* The tight line-height cuts the box off above descenders (the tail of
+     "g"), and background-clip: text only paints inside the box. Extend the
+     box downward, then pull the spacing back so the layout doesn't move. */
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
 }
 
 .hero-title:hover .ht-outline {
