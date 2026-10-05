@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 
-// Fades sections in as they scroll into view. Elements with the
-// `reveal` class start hidden (see styles.css) and get `is-visible`.
+// Fades elements with the `reveal` class in as they scroll into view.
+// Content is only hidden once this hook has run (html.reveal-on), so the
+// page stays readable if JavaScript or IntersectionObserver is missing.
 export function useReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll(".reveal");
-    if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => el.classList.add("is-visible"));
-      return;
-    }
+    if (!("IntersectionObserver" in window)) return;
+    const root = document.documentElement;
+    root.classList.add("reveal-on");
+
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -18,9 +18,12 @@ export function useReveal() {
           }
         });
       },
-      { threshold: 0.08 }
+      { threshold: 0.1, rootMargin: "0px 0px -5% 0px" }
     );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    return () => {
+      io.disconnect();
+      root.classList.remove("reveal-on");
+    };
   }, []);
 }
