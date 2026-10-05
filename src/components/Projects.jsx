@@ -76,8 +76,12 @@ function Featured({ p }) {
 function Ticket({ p, index }) {
   const ref = useRef(null);
   useTilt(ref, 6);
+  // The wrapper fades in on scroll (with a staggered delay); the ticket inside
+  // tilts. Keeping them on separate elements stops the fade-in's slow, delayed
+  // transition from also applying to the tilt.
   return (
-    <article ref={ref} className={`ticket reveal c-${p.line}`} style={{ "--i": index }}>
+    <div className="ticket-slot reveal" style={{ "--i": index }}>
+    <article ref={ref} className={`ticket c-${p.line}`}>
       <div className="ticket-main">
         <p className="ticket-kicker mono">
           <span className={`dot bg-${p.line}`} aria-hidden="true" /> {p.kicker}
@@ -94,6 +98,7 @@ function Ticket({ p, index }) {
         <span className="barcode" aria-hidden="true" />
       </div>
     </article>
+    </div>
   );
 }
 

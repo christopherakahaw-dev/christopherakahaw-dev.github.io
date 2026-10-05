@@ -1402,8 +1402,9 @@ tr[data-status="boarding"] .col-status .flaps {
   transition: transform 0.25s ease-out;
 }
 
-.reveal-on .ticket.reveal.is-visible {
-  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+/* Fades in on scroll; stretches so tickets in a row stay equal height */
+.ticket-slot {
+  display: grid;
 }
 
 .ticket::before {
