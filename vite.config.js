@@ -1,8 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// GitHub Pages serves this repo at /portfoliio/
+// Served from the root of https://christopherakahaw-dev.github.io/
 export default defineConfig({
   plugins: [react()],
-  base: "/portfoliio/",
+  base: "/",
 });

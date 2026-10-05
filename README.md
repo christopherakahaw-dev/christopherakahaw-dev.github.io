@@ -2,7 +2,7 @@
 
 Personal portfolio site built with **React + Vite**, deployed to **GitHub Pages**.
 
-Live: https://christopherakahaw-dev.github.io/portfoliio/
+Live: https://christopherakahaw-dev.github.io/
 
 ## Run locally
 
@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-Then open http://localhost:5173/portfoliio/
+Then open http://localhost:5173/
 
 ## Update the content
 

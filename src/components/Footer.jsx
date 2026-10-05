@@ -15,7 +15,7 @@ export default function Footer() {
           <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a> ·{" "}
           <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a> ·{" "}
           © {new Date().getFullYear()} {profile.name} · Built with React + Vite ·{" "}
-          <a href="https://github.com/christopherakahaw-dev/portfoliio" target="_blank" rel="noreferrer">Source</a>
+          <a href="https://github.com/christopherakahaw-dev/christopherakahaw-dev.github.io" target="_blank" rel="noreferrer">Source</a>
         </p>
       </div>
     </footer>
