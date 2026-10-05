@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { profile, sections } from "../data/profile.js";
 import { useTheme } from "../hooks/useTheme.js";
 import { useActiveSection } from "../hooks/useScroll.js";
@@ -11,9 +11,39 @@ const ids = sections.map((s) => s.id);
 export default function Navbar() {
   const [theme, toggleTheme] = useTheme();
   const [open, setOpen] = useState(false);
-  const { active, progress } = useActiveSection(ids);
+  const { active, fraction, progress } = useActiveSection(ids);
   const activeIndex = ids.indexOf(active);
   const close = () => setOpen(false);
+  const trackRef = useRef(null);
+  const [dots, setDots] = useState([]);
+
+  // Stop labels have different widths, so the dots aren't evenly spaced —
+  // measure where each one actually sits on the track.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    function measure() {
+      const left = track.getBoundingClientRect().left;
+      setDots([...track.querySelectorAll(".stop-dot")].map((d) => {
+        const r = d.getBoundingClientRect();
+        return r.left + r.width / 2 - left;
+      }));
+    }
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(track);
+    return () => ro.disconnect();
+  }, []);
+
+  // The marker sits on the current section's stop and slides toward the next
+  // one as you read through the section. Before the first section it waits
+  // at the start of the track.
+  let markerX = 7;
+  if (dots.length && activeIndex >= 0) {
+    const from = dots[activeIndex];
+    const to = dots[Math.min(activeIndex + 1, dots.length - 1)];
+    markerX = from + (to - from) * fraction;
+  }
 
   return (
     <header className="nav">
@@ -27,7 +57,7 @@ export default function Navbar() {
         </a>
 
         <nav aria-label="Sections" className="line-nav">
-          <ol className="line-track" style={{ "--progress": progress }}>
+          <ol ref={trackRef} className="line-track" style={{ "--pos": `${markerX}px` }}>
             <span className="line-fill" aria-hidden="true" />
             <span className="line-marker" aria-hidden="true" />
             {sections.map((s, i) => (

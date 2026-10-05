@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 
-// Which section is currently in view, plus overall page scroll progress (0–1).
+// Which section is currently in view, how far through it you are (0–1),
+// and overall page scroll progress (0–1).
 export function useActiveSection(ids) {
   const [active, setActive] = useState(null);
+  const [fraction, setFraction] = useState(0);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -14,12 +16,20 @@ export function useActiveSection(ids) {
 
       // Active = last section whose top has passed 40% of the viewport
       const line = window.innerHeight * 0.4;
-      let current = null;
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= line) current = id;
+      const tops = ids.map((id) => document.getElementById(id)?.getBoundingClientRect().top ?? Infinity);
+      let index = -1;
+      tops.forEach((top, i) => {
+        if (top <= line) index = i;
+      });
+
+      // Fraction through the active section, measured to the next section's top
+      let frac = 0;
+      if (index >= 0 && index < ids.length - 1) {
+        const span = tops[index + 1] - tops[index];
+        frac = span > 0 ? Math.max(0, Math.min(1, (line - tops[index]) / span)) : 0;
       }
-      setActive(current);
+      setActive(index >= 0 ? ids[index] : null);
+      setFraction(frac);
     }
     function onScroll() {
       if (!frame) frame = requestAnimationFrame(update);
@@ -34,7 +44,7 @@ export function useActiveSection(ids) {
     };
   }, [ids]);
 
-  return { active, progress };
+  return { active, fraction, progress };
 }
 
 // How far an element has been scrolled through the viewport (0–1),

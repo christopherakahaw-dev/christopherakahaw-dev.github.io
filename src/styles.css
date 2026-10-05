@@ -326,7 +326,7 @@ button {
 }
 
 .line-track {
-  --progress: 0;
+  --pos: 7px;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -349,15 +349,16 @@ button {
 }
 
 .line-fill {
+  right: auto;
+  width: max(0px, calc(var(--pos) - 7px));
   background: linear-gradient(90deg, var(--accent), var(--accent-3));
-  transform-origin: left;
-  transform: scaleX(var(--progress));
+  transition: width 0.15s linear;
 }
 
 .line-marker {
   position: absolute;
   top: 6px;
-  left: calc(7px + (100% - 14px) * var(--progress));
+  left: var(--pos);
   width: 16px;
   height: 16px;
   margin-left: -8px;
