@@ -1,34 +1,31 @@
 import Section from "./Section.jsx";
-import { skillGroups } from "../data/profile.js";
+import { skillLines } from "../data/profile.js";
 
-// Skills as keyboard keys: solid keys for confident skills, outlined keys
-// for ones still being learned. Keys press down on hover.
+// Skills drawn as metro lines: each line is a skill area, each station a skill.
 export default function Skills() {
   return (
-    <Section id="skills" title="What I work with">
-      <div className="keyboard">
-        {skillGroups.map((g, i) => (
-          <div key={g.name} className="key-group reveal" style={{ "--i": i }}>
-            <p className="key-group-name mono">
-              <span className="key-group-num">{String(i + 1).padStart(2, "0")}</span> {g.name}
-            </p>
-            <ul className="keys">
-              {g.items.map((s) => (
-                <li key={s.name} className={`key ${s.level}`}>
-                  <span className="key-cap">
-                    <span className="key-name">{s.name}</span>
-                    {s.note && <span className="key-note mono">{s.note}</span>}
-                  </span>
+    <Section id="skills" title="The skills network">
+      <div className="metro reveal">
+        {skillLines.map((l, i) => (
+          <div key={l.name} className={`mline c-${l.line}`} style={{ "--i": i }}>
+            <span className={`mline-name bg-${l.line}`}>{l.name}</span>
+            <ol className="mline-track">
+              <span className="mline-train" aria-hidden="true" />
+              {l.items.map((s) => (
+                <li key={s.name} className={`mstop ${s.level}`}>
+                  <span className="mstop-dot" aria-hidden="true" />
+                  <span className="mstop-name">{s.name}</span>
+                  {s.note && <span className="mstop-note mono">{s.note}</span>}
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
         ))}
+        <p className="metro-legend mono">
+          <span><i className="lg core" /> Confident</span>
+          <span><i className="lg learning" /> Still learning</span>
+        </p>
       </div>
-      <p className="key-legend mono reveal">
-        <span><i className="lg core" /> Confident</span>
-        <span><i className="lg learning" /> Still learning</span>
-      </p>
     </Section>
   );
 }

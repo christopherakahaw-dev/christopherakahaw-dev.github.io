@@ -22,12 +22,12 @@ function Tags({ tags }) {
   );
 }
 
-// Mini route illustration for the featured project: Solvik's demo commute,
-// Tampines → Raffles Place, drawn as an animated route.
+// Mini route map for the featured project: a home-to-office commute,
+// drawn as an animated route.
 function RouteMap() {
   const route = "M 40 60 H 170 L 230 120 H 330 L 380 170 H 470";
   return (
-    <svg className="route-map" viewBox="0 0 510 230" role="img" aria-label="Illustration of a planned route from Tampines to Raffles Place">
+    <svg className="route-map" viewBox="0 0 510 230" role="img" aria-label="Illustration of a planned commute from home to the office">
       <path d="M 20 200 L 120 120 L 250 40 H 500" className="rm-ghost" />
       <path d="M 60 10 V 90 L 150 180 H 300" className="rm-ghost" />
       <path d={route} className="rm-base" />
@@ -35,7 +35,7 @@ function RouteMap() {
       <circle r="8" className="rm-train">
         <animateMotion dur="5s" repeatCount="indefinite" path={route} />
       </circle>
-      {[[40, 60, "Tampines"], [230, 120, "Paya Lebar"], [470, 170, "Raffles Place"]].map(([x, y, n], i) => (
+      {[[40, 60, "Home"], [230, 120, "Transfer"], [470, 170, "Office"]].map(([x, y, n], i) => (
         <g key={n}>
           <circle cx={x} cy={y} r={i === 1 ? 10 : 8} className={i === 1 ? "rm-interchange" : "rm-stop"} />
           <text x={x} y={y + (i === 2 ? 34 : -20)} textAnchor="middle" className="rm-label">{n}</text>
@@ -57,7 +57,7 @@ function Featured({ p }) {
   return (
     <article className="poster reveal">
       <div className="poster-copy">
-        <p className="poster-kicker mono"><span className="badge">Featured</span> {p.kicker}</p>
+        <p className="poster-kicker mono"><span className="code-pill bg-teal">★</span> Featured · {p.kicker}</p>
         <h3 className="poster-title">{p.title}</h3>
         <p className="poster-summary">{p.summary}</p>
         <ul className="poster-points">
@@ -77,18 +77,18 @@ function Ticket({ p, index }) {
   const ref = useRef(null);
   useTilt(ref, 6);
   return (
-    <article ref={ref} className="ticket reveal" style={{ "--i": index }}>
+    <article ref={ref} className={`ticket reveal c-${p.line}`} style={{ "--i": index }}>
       <div className="ticket-main">
         <p className="ticket-kicker mono">
-          <span className="dot" aria-hidden="true" /> {p.kicker}
-          {p.status && <span className="badge badge-alt">{p.status}</span>}
+          <span className={`dot bg-${p.line}`} aria-hidden="true" /> {p.kicker}
+          {p.status && <span className="badge">{p.status}</span>}
         </p>
         <h3 className="ticket-title">{p.title}</h3>
         <p className="ticket-summary">{p.summary}</p>
         <Tags tags={p.tags} />
       </div>
       <div className="ticket-stub">
-        <span className="stub-label mono">Project</span>
+        <span className="stub-label mono">Admit one</span>
         <span className="stub-no mono">No. {String(index + 2).padStart(3, "0")}</span>
         {(p.live || p.code) ? <Links p={p} /> : <span className="stub-soon mono">Coming soon</span>}
         <span className="barcode" aria-hidden="true" />
@@ -107,7 +107,7 @@ export default function Projects() {
       </div>
 
       <div className="retired reveal">
-        <p className="retired-title mono">Earlier experiments · archived</p>
+        <p className="retired-title mono">Earlier lines · no longer in service</p>
         <ul>
           {earlierWork.map((w) => (
             <li key={w.title}>
